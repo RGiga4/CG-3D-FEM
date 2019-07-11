@@ -9,7 +9,7 @@ in vec4 position_light_space;
 uniform vec3 light_dir;
 uniform sampler2D shadow_map;
 
-out vec4 frag_color;
+layout(location = 0) out vec4 frag_color;
 
 
 void main()

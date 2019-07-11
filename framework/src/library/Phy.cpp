@@ -138,12 +138,12 @@ Eigen::VectorXf Phy::update() {
 
 	for (int i = 0; i < 3 * n_Vet - n_fix; i++) {
 		deformsmall[i] += delta_t * new_v[i];
-		if(i>=0 && i<3)std::cout <<i<<" "<< new_v[i] << " " << std::endl;
+		//if(i>=0 && i<3)std::cout <<i<<" "<< new_v[i] << " " << std::endl;
 	}
 
 	v = new_v;
 
-	
+	//std::cout << "v "<<new_v << std::endl;
 
 	return x;
 

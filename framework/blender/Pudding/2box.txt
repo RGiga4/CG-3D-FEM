@@ -1,0 +1,100 @@
+12, 10, 4
+1, 0.0, 0.0, 0.0
+2, 1.0, 0.0, 0.0
+3, 1.0, 1.0, 0.0
+4, 0.0, 1.0, 0.0
+5, 0.0, 0.0, 1.0
+6, 1.0, 0.0, 1.0
+7, 1.0, 1.0, 1.0
+8, 0.0, 1.0, 1.0
+9, 0.0, 0.0, 2.0
+10, 1.0, 0.0, 2.0
+11, 1.0, 1.0, 2.0
+12, 0.0, 1.0, 2.0
+369, 1, 2, 3, 6
+370, 1, 3, 4, 8
+371, 5, 6, 8, 1
+372, 6, 7, 8, 3
+373, 1, 3, 6, 8
+374, 5, 6, 7, 10
+376, 5, 7, 8, 12
+377, 9, 10, 12, 5
+378, 10, 11, 12, 7
+379, 5, 7, 10, 12
+7,
+8,
+9,
+10,
+
+
+***********************************************************
+** Materials
+** written by write_materials function
+** Young's modulus unit is MPa = N/mm2
+** Density's unit is t/mm^3
+** FreeCAD material name: X39CrMo17-1
+** SolidMaterial
+*MATERIAL, NAME=SolidMaterial
+*ELASTIC
+213000, 0.300
+*DENSITY
+7.800e-09
+
+***********************************************************
+** Sections
+** written by write_femelementsets function
+*SOLID SECTION, ELSET=SolidMaterialSolid, MATERIAL=SolidMaterial
+
+***********************************************************
+** At least one step is needed to run an CalculiX analysis of FreeCAD
+** written by write_step_begin function
+*STEP
+*STATIC
+
+
+***********************************************************
+** Fixed Constraints
+** written by write_constraints_fixed function
+** FemConstraintFixed
+*BOUNDARY
+FemConstraintFixed,1
+FemConstraintFixed,2
+FemConstraintFixed,3
+
+
+***********************************************************
+** Self weight Constraint
+** written by write_constraints_selfweight function
+** ConstraintSelfWeight
+*DLOAD
+Eall,GRAV,9810,0.0,0.0,-1.0
+
+
+***********************************************************
+** Outputs --> frd file
+** written by write_outputs_types function
+*NODE FILE
+U
+*EL FILE
+S, E
+
+***********************************************************
+** written by write_step_end function
+*END STEP 
+
+***********************************************************
+** CalculiX Input file
+** written by write_footer function
+**   written by    --> FreeCAD 0.18.16110 (Git)
+**   written on    --> Sat Jun 22 13:51:15 2019
+**   file name     --> 
+**   analysis name --> Analysis
+**
+**
+**
+**   Units
+**
+**   Geometry (mesh data)        --> mm
+**   Materials (Young's modulus) --> N/mm2 = MPa
+**   Loads (nodal loads)         --> N
+**

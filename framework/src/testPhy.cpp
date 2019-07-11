@@ -70,49 +70,12 @@ int main(int, char* argv[]) {
 	/*int fix[] = { 0,1,2, 3,4,5, 6,7,8, 9,10,11 };
 	int n_fix = 12;*/
 
-	Body.loaddata("..\\blender\\Pudding\\pudding.txt");
-	Body.myloadScene("..\\blender\\Pudding\\thepudding.obj", true, glm::vec4(1.0f, 0.5f, 0.2f, 1.0f));
+	Body.loaddata("..\\blender\\Pudding\\2Box.txt");
+	Body.myloadScene("..\\blender\\Pudding\\2Box.obj", true, glm::vec4(1.0f, 0.5f, 0.2f, 1.0f));
 
 
 	// vertex data
-	float vertex_data[] = {
-		 0.0f,  0.0f, 0.0f,
-		 1.0f,  0.0f, 0.0f,
-		 1.0f,  1.0f, 0.0f,
-		 0.0f,  1.0f, 0.0f,
-		 0.0f,  0.0f, 1.0f,
-		 1.0f,  0.0f, 1.0f,
-		 1.0f,  1.0f, 1.0f,
-		 0.0f,  1.0f, 1.0f,
-
-		 0.0f,  0.0f, 0.0f,
-		 0.0f,  0.0f, 0.0f,
-		 0.0f,  0.0f, 0.0f,
-		 0.0f,  0.0f, 0.0f,
-		 0.0f,  0.0f, 0.0f,
-		 0.0f,  0.0f, 0.0f,
-		 0.0f,  0.0f, 0.0f,
-		 0.0f,  0.0f, 0.0f,
-
-		 1.0f, 0.5f, 0.2f, 1.0f,
-		 1.0f, 0.5f, 0.2f, 1.0f,
-		 1.0f, 0.5f, 0.2f, 1.0f,
-		 1.0f, 0.5f, 0.2f, 1.0f,
-		 1.0f, 0.5f, 0.2f, 1.0f,
-		 1.0f, 0.5f, 0.2f, 1.0f,
-		 1.0f, 0.5f, 0.2f, 1.0f,
-		 1.0f, 0.5f, 0.2f, 1.0f
-	};
-
-
-	unsigned int indices[] = {
-		0, 1, 2,  0, 2, 3,
-		0, 1, 5,  0, 4, 5,
-		1, 2, 5,  2, 5, 6,
-		4, 5, 6,  4, 6, 7,
-		0, 3, 4,  3, 4, 7,
-		3, 2, 7,  7, 6, 2,
-	};
+	
 
 	//int fix[] = { 0,1,2, 3,4,5, 6,7,8 };
 	//int n_fix = 9;// size fo fix
@@ -146,7 +109,7 @@ int main(int, char* argv[]) {
 
 	Body.init();
 
-	//std::cout << x << std::endl;
+	//std::cout << Body.f_ext << std::endl;
 
 	Body.update();
 
@@ -206,9 +169,9 @@ int main(int, char* argv[]) {
 		float delta_time = getTimeDelta();
 
 		//std::cout << delta_time << std::endl;
-		if (delta_time + time1 > 16.0) {
+		if (delta_time + time1 > 1000.0) {
 			std::cout << "tick" << std::endl;
-			time1 += delta_time - 16.0;
+			time1 += delta_time - 1000.0;
 			start_time = std::chrono::system_clock::now();
 			//std::cout << "Tik" << std::endl;
 			Body.update();
@@ -255,7 +218,7 @@ int main(int, char* argv[]) {
 		// process window events
 		glfwPollEvents();
 
-
+		break;
 	}
 
 

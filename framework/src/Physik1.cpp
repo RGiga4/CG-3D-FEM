@@ -200,6 +200,42 @@ int main(int, char* argv[]) {
 	
 	}*/
 
+	//++++++++++
+
+
+	GLuint outputFrame = 0;
+	glGenFramebuffers(1, &outputFrame);
+	glBindFramebuffer(GL_FRAMEBUFFER, outputFrame);
+
+	//texture fur outputframe
+	GLuint renderTexture;
+	glGenTextures(1, &renderTexture);
+
+	glBindTexture(GL_TEXTURE_2D, renderTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	//depthbuffer
+	GLuint depthrenderbuffer;
+	glGenRenderbuffers(1, &depthrenderbuffer);
+	glBindRenderbuffer(GL_RENDERBUFFER, depthrenderbuffer);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WINDOW_WIDTH, WINDOW_HEIGHT);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer);
+
+	//configure
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, renderTexture, 0);
+	GLenum DrawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+	glDrawBuffers(1, DrawBuffers);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		std::cout << "Fehler TExture erstellung" << std::endl;
+
+
+	//++++++++++
+
+
 	while ((glfwWindowShouldClose(window) == false) && true) {
 		now = std::chrono::system_clock::now();
 		
@@ -212,7 +248,7 @@ int main(int, char* argv[]) {
 			start_time = std::chrono::system_clock::now();
 			//std::cout << "Tik" << std::endl;
 			Body.update();
-			//Body.updatevbo();
+			Body.updatevbo();
 			//std::cout << getTimeDelta() << std::endl;
 			//std::cout << "up" << std::endl;
 
@@ -252,6 +288,10 @@ int main(int, char* argv[]) {
 
 		// swap buffers == show rendered content
 		glfwSwapBuffers(window);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, outputFrame);
+		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
 		// process window events
 		glfwPollEvents();
 		
